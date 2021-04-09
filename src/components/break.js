@@ -1,13 +1,18 @@
-import React from 'react'
+import React from 'react';
 
+function BreakInterval({ breakLength, setBreakLength, handleDecrease, handleIncrement }) {
 
-function BreakInterval(){
-return(
-    <div>
-        <button>-</button>
-        <p>5min</p>
-        <button>+</button>
+  return (
+    <div className='break'> 
+      <h3 className="sidebar-break">BREAK</h3>
+      <button className="sidebar-btn" onClick={handleDecrease}>
+        -
+      </button>
+      <p>{breakLength} min</p>
+      <button className="sidebar-btn" onClick={handleIncrement}>
+        +
+      </button>
     </div>
-)
+  );
 }
-export default BreakInterval
+export default BreakInterval;

@@ -4,6 +4,7 @@ html,
 body {
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
+
 }
 
 body {
@@ -29,12 +30,19 @@ body {
   margin-right: auto;
 }
 
-
 .circle {
   border: 1px solid black;
   border-radius: 50%;
   width: 28em;
   height: 28em;
+}
+
+#timer-label{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  color: transparent;
+  text-transform: uppercase;
+  font-size: 2.5rem;
 }
 
 #timer-digits {
@@ -48,9 +56,81 @@ body {
 
 .ticktac {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0; bottom: 0; left: 0; right: 0;
+  margin: auto;
   text-align: center;
   width: 20em;
+}
+
+#start_stop {
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: white;
+  padding: 2em;
+  width: 6em;
+  height: 6em;
+  text-align: center;
+  margin-top: -4em;
+}
+
+
+/* sidebar */
+
+.sidebar-break{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  color: transparent;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+}
+
+.sidebar-btn{
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: white;
+  padding: 2em;
+  width: 5em;
+  height: 5em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.navBar{
+
+
+  position: fixed;
+  top: 0;
+  background:blue;
+  border: 1px solid black;
+  left: 0;
+  
+  height: 100vh;
+ 
+
+  max-width: 290px;
+  z-index: 9;
+}
+
+.menuNav {
+  overflow-y: scroll;
+  list-style: none;
+  position: fixed;
+  top: 0;
+  background: darkcyan;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  max-width: 290px;
+  z-index: 9;
+}
+
+.menuNav.showMenu {
+  width: 100%;
+}
+
+.break{
+  display: flex;
 }
