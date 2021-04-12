@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import BreakInterval from './break';
 import WorkInterval from './work';
-function Sidebar({ breakLength, setBreakLength, workLength, setWorkLength }) {
+import Close from '../images/close.svg';
+import Burger from '../images/burger.svg';
+
+function Sidebar({
+  breakLength,
+  workLength,
+  decreaseBreak,
+  increaseBreak,
+  increaseWork,
+  decreaseWork,
+}) {
   const [navbarOpen, setNavbarOpen] = useState(true);
 
   const handleToggle = () => {
@@ -10,13 +20,24 @@ function Sidebar({ breakLength, setBreakLength, workLength, setWorkLength }) {
 
   return (
     <div>
-      <button className='sidebar-menu-btn' onClick={handleToggle}>{navbarOpen ? 'Close' : 'Open'}</button>
+      <div className='sidebar-main-btn'>
+        <button className="sidebar-menu-btn" onClick={handleToggle}>
+          {navbarOpen ? '-' : 'Open'}
+        </button>
+      </div>
       <nav className={`menuNav ${navbarOpen ? ' showMenu' : ''}`}>
-        <WorkInterval workLength={workLength} setWorkLength={setWorkLength} />
-        <BreakInterval
-          breakLength={breakLength}
-          setBreakLength={setBreakLength}
-        />
+        <div className="sidebar-content">
+          <WorkInterval
+            workLength={workLength}
+            increaseWork={increaseWork}
+            decreaseWork={decreaseWork}
+          />
+          <BreakInterval
+            breakLength={breakLength}
+            decreaseBreak={decreaseBreak}
+            increaseBreak={increaseBreak}
+          />
+        </div>
       </nav>
     </div>
   );

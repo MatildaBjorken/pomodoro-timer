@@ -1,22 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
-import Break from './break';
 import TicTac from '../images/circle-text.svg';
 import getItDone from '../images/getitdone.svg';
 import Play from '../images/play.svg';
 import Pause from '../images/pause.svg';
 import Sidebar from './sidebar';
 import Reset from '../images/reset.svg';
+import About from './about';
+import { Link } from 'react-router-dom';
+import Errorm from './error';
+
+import soundfile from '../src_ride.wav';
 
 function Timer() {
   const [workLength, setWorkLength] = useState(25);
   const [breakLength, setBreakLength] = useState(5);
   const [timerLabel, setTimerLabel] = useState('Work');
-  const [seconds, setSeconds] = useState(25* 60);
+  const [seconds, setSeconds] = useState(25 * 60);
   const [timerRunning, setTimerRunning] = useState(false);
-
-  const [open, setOpen] = useState(false);
-  const node = useRef();
-  const menuId = 'main-menu';
+  const myAudio = useRef();
 
   let min = Math.floor(seconds / 60);
   let sec = seconds % 60;
@@ -26,13 +27,13 @@ function Timer() {
       if (timerLabel === 'Work') {
         setTimerLabel('Break');
         const div = document.createElement('div');
-        div.classList.add("anotherclass");
+        div.classList.add('anotherclass');
         // update the break
         setSeconds(breakLength * 60);
       } else if (timerLabel === 'Break') {
         setTimerLabel('Work');
         const div = document.createElement('div');
-        div.classList.add("anotherclass");
+        div.classList.add('anotherclass');
         //update the session
         setSeconds(workLength * 60);
       }
@@ -47,12 +48,13 @@ function Timer() {
       countdown = setInterval(() => {
         setSeconds(seconds - 1);
       }, 1000);
+      myAudio.current.play();
       handleSwitch();
     } else {
       clearInterval(countdown);
     }
     return () => clearInterval(countdown);
-  }, [timerRunning, seconds, timerLabel, breakLength, workLength]);
+  }, [timerRunning, seconds, timerLabel, breakLength, workLength, myAudio]);
 
   const handleStart = () => {
     setTimerRunning(true);
@@ -65,24 +67,61 @@ function Timer() {
     setSeconds(25 * 60);
     setTimerLabel('Work');
     setTimerRunning(false);
+    setBreakLength(5);
   };
 
   const timerMinutes = min < 10 ? `${min}` : min;
   const timerSeconds = sec < 10 ? `0${sec}` : sec;
 
-  //
+  const increaseWork = () => {
+    if (!timerRunning && workLength < 60) {
+      setWorkLength(workLength + 5);
+      setSeconds((workLength + 5) * 60);
+    }
+  };
+
+  const decreaseWork = () => {
+    if (!timerRunning && workLength > 5) {
+      setWorkLength(workLength - 5);
+      setSeconds((workLength - 5) * 60);
+    }
+  };
+
+  const decreaseBreak = () => {
+    if (!timerRunning && breakLength > 1) {
+      setBreakLength(breakLength - 1);
+    }
+  };
+
+  const increaseBreak = () => {
+    if (!timerRunning && breakLength < 60) {
+      setBreakLength(breakLength + 1);
+    }
+    if (timerRunning) {
+      console.log('men funka');
+      return <Errorm />;
+
+      return <h1 className="error-message">Please sign up.</h1>;
+    }
+  };
 
   return (
     <div className="main">
-      <div className='getItDone'>
-      <img src={getItDone} className='getItDone'/>
+      <About />
+      <Link className="link" to="task">
+        task
+      </Link>
+      <div className="getItDone">
+        <img src={getItDone} className="getItDone" />
       </div>
       <Sidebar
         activeClassName="active-link"
         breakLength={breakLength}
-        setBreakLength={setBreakLength}
         workLength={workLength}
-        setWorkLength={setWorkLength}
+        increaseWork={increaseWork}
+        decreaseWork={decreaseWork}
+        decreaseBreak={decreaseBreak}
+        increaseBreak={increaseBreak}
       ></Sidebar>
 
       <div className="timer-container">
@@ -94,13 +133,11 @@ function Timer() {
           </h3>
           <img onClick={handleReset} src={Reset} id="reset" />
         </div>
-        <button
-          id="start_stop"
-          onClick={timerRunning ? handleStop : handleStart}
-        >
+        <div id="start_stop" onClick={timerRunning ? handleStop : handleStart}>
           {timerRunning ? <img src={Pause} /> : <img src={Play} />}
-        </button>
+        </div>
       </div>
+      <audio id="beep" ref={myAudio} src={soundfile} type="audio"></audio>
     </div>
   );
 }

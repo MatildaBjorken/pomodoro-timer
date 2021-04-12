@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-function About() {
+function Errorm() {
   const [modalIsOpen, setmodalIsOpen] = useState(false);
   return (
-    <div class="modal-info">
+    <div >
       <div
         className="legend"
         onClick={() => {
           setmodalIsOpen(true);
         }}
       >
-        <button className="modal-button">i</button>
+        <button >eeee</button>
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -47,4 +47,4 @@ function About() {
   );
 }
 
-export default About;
+export default Errorm;

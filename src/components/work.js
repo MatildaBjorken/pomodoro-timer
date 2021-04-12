@@ -1,24 +1,16 @@
 import React from 'react';
 
-function WorkInterval({ workLength, setWorkLength }) {
-  console.log(workLength);
-  const handleDecrease = () => {
-    setWorkLength(workLength - 5);
-  };
-
-  const handleIncrement = () => {
-    setWorkLength(workLength + 5);
-  };
-
+function WorkInterval({ workLength, increaseWork, decreaseWork }) {
   return (
-    <div className="break">
+    <div className="work">
       <h3 className="sidebar-break">WORK</h3>
-      <button className="sidebar-btn" onClick={handleDecrease}>
-        -
+      <button className="sidebar-btn" onClick={increaseWork}>
+        +
       </button>
       <p>{workLength} MIN</p>
-      <button className="sidebar-btn" onClick={handleIncrement}>
-        +
+
+      <button className="sidebar-btn" onClick={decreaseWork}>
+        -
       </button>
     </div>
   );
