@@ -5,12 +5,13 @@ import getItDone from '../images/getitdone.svg';
 import Play from '../images/play.svg';
 import Pause from '../images/pause.svg';
 import Sidebar from './sidebar';
+import Reset from '../images/reset.svg';
 
 function Timer() {
-  const [sessionLength, setSessionLength] = useState(25);
+  const [workLength, setWorkLength] = useState(25);
   const [breakLength, setBreakLength] = useState(5);
   const [timerLabel, setTimerLabel] = useState('Work');
-  const [seconds, setSeconds] = useState(25 * 60);
+  const [seconds, setSeconds] = useState(25* 60);
   const [timerRunning, setTimerRunning] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -24,12 +25,16 @@ function Timer() {
     const handleSwitch = () => {
       if (timerLabel === 'Work') {
         setTimerLabel('Break');
+        const div = document.createElement('div');
+        div.classList.add("anotherclass");
         // update the break
         setSeconds(breakLength * 60);
       } else if (timerLabel === 'Break') {
         setTimerLabel('Work');
+        const div = document.createElement('div');
+        div.classList.add("anotherclass");
         //update the session
-        setSeconds(sessionLength * 60);
+        setSeconds(workLength * 60);
       }
     };
 
@@ -47,7 +52,7 @@ function Timer() {
       clearInterval(countdown);
     }
     return () => clearInterval(countdown);
-  }, [timerRunning, seconds, timerLabel, breakLength, sessionLength]);
+  }, [timerRunning, seconds, timerLabel, breakLength, workLength]);
 
   const handleStart = () => {
     setTimerRunning(true);
@@ -66,19 +71,19 @@ function Timer() {
   const timerSeconds = sec < 10 ? `0${sec}` : sec;
 
   //
-  const handleDecrease = () => {
-    setBreakLength(breakLength - 1);
-  };
-
-  const handleIncrement = () => {
-    setBreakLength(breakLength + 1);
-  };
 
   return (
-    <div className="">
-      <Sidebar activeClassName="active-link">
-        <Break breakLength={breakLength} setBreakLength={setBreakLength} handleDecrease={handleDecrease} handleIncrement={handleIncrement}/>
-      </Sidebar>
+    <div className="main">
+      <div className='getItDone'>
+      <img src={getItDone} className='getItDone'/>
+      </div>
+      <Sidebar
+        activeClassName="active-link"
+        breakLength={breakLength}
+        setBreakLength={setBreakLength}
+        workLength={workLength}
+        setWorkLength={setWorkLength}
+      ></Sidebar>
 
       <div className="timer-container">
         <div className="circle">
@@ -87,16 +92,13 @@ function Timer() {
           <h3 id="timer-digits">
             {timerMinutes}:{timerSeconds}
           </h3>
+          <img onClick={handleReset} src={Reset} id="reset" />
         </div>
-
         <button
           id="start_stop"
           onClick={timerRunning ? handleStop : handleStart}
         >
           {timerRunning ? <img src={Pause} /> : <img src={Play} />}
-        </button>
-        <button onClick={handleReset} id="reset">
-          Reset
         </button>
       </div>
     </div>
