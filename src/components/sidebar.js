@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BreakInterval from './break';
 import WorkInterval from './work';
 import Close from '../images/close.svg';
 import Burger from '../images/burger.svg';
+import Play from '../images/play.svg';
 
 function Sidebar({
   breakLength,
@@ -18,12 +19,33 @@ function Sidebar({
     setNavbarOpen(!navbarOpen);
   };
 
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState();
+    useEffect(() => {
+      function handleResize() {
+        if (window.innerWidth >= 900) {
+          setWindowSize(true);
+          var element = document.querySelector('.menuNav');
+          element.classList.add('sidebar');
+        } else {
+          setNavbarOpen(false);
+          setWindowSize(false);
+        }
+      }
+      window.addEventListener('resize', handleResize);
+      handleResize();
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    return windowSize;
+  }
+  useWindowSize();
+
   return (
     <div>
-      <div className='sidebar-main-btn'>
-        <button className="sidebar-menu-btn" onClick={handleToggle}>
-          {navbarOpen ? '-' : 'Open'}
-        </button>
+      <div className="sidebar-main-btn">
+        <div className="sidebar-menu-btn" onClick={handleToggle}>
+          {navbarOpen ? <img src={Close} /> : <img src={Burger} />}
+        </div>
       </div>
       <nav className={`menuNav ${navbarOpen ? ' showMenu' : ''}`}>
         <div className="sidebar-content">

@@ -15,7 +15,7 @@ function Timer() {
   const [workLength, setWorkLength] = useState(25);
   const [breakLength, setBreakLength] = useState(5);
   const [timerLabel, setTimerLabel] = useState('Work');
-  const [seconds, setSeconds] = useState(25 * 60);
+  const [seconds, setSeconds] = useState(.1 * 60);
   const [timerRunning, setTimerRunning] = useState(false);
   const myAudio = useRef();
 
@@ -26,8 +26,9 @@ function Timer() {
     const handleSwitch = () => {
       if (timerLabel === 'Work') {
         setTimerLabel('Break');
-        const div = document.createElement('div');
-        div.classList.add('anotherclass');
+        var element = document.getElementById('timer-digits');
+        element.classList.add('anotherclass');
+
         // update the break
         setSeconds(breakLength * 60);
       } else if (timerLabel === 'Break') {
@@ -48,7 +49,6 @@ function Timer() {
       countdown = setInterval(() => {
         setSeconds(seconds - 1);
       }, 1000);
-      myAudio.current.play();
       handleSwitch();
     } else {
       clearInterval(countdown);
@@ -111,9 +111,7 @@ function Timer() {
       <Link className="link" to="task">
         task
       </Link>
-      <div className="getItDone">
-        <img src={getItDone} className="getItDone" />
-      </div>
+
       <Sidebar
         activeClassName="active-link"
         breakLength={breakLength}
@@ -133,8 +131,13 @@ function Timer() {
           </h3>
           <img onClick={handleReset} src={Reset} id="reset" />
         </div>
-        <div id="start_stop" onClick={timerRunning ? handleStop : handleStart}>
-          {timerRunning ? <img src={Pause} /> : <img src={Play} />}
+        <div className="start-btn">
+          <div
+            id="start_stop"
+            onClick={timerRunning ? handleStop : handleStart}
+          >
+            {timerRunning ? <img src={Pause} /> : <img src={Play} />}
+          </div>
         </div>
       </div>
       <audio id="beep" ref={myAudio} src={soundfile} type="audio"></audio>

@@ -1,0 +1,26 @@
+.header-image {
+  width: 30%;
+  margin-top: -15em;
+  margin: 2em;
+  position: absolute;
+  top: 0;
+}
+
+input {
+  background-color: transparent;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: none;
+  padding: 10px 20px;
+  border-bottom: 2px solid black;
+  box-shadow: none;
+  color: black;
+}
+input:invalid {
+  outline: 0;
+}
+input:focus,
+input:valid {
+  border-color: black;
+}

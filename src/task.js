@@ -1,109 +1,117 @@
-import React from "react";
-import Status from './components/status';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import GetItDone from './images/getitdone.svg'
 
-function Task() {
+export default function Task() {
+  const [inputValue, setInputValue] = useState('');
+  const [items, setItems] = useState([]);
+  
 
-    const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('items'));
+    if (items) {
+      setItems(items);
+    }
+  }, []);
 
-    function addEmptyTask(status) {
-      const lastTask = tasks[tasks.length - 1];
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+ 
   
-      let newTaskId = 1;
-  
-      if (lastTask !== undefined) {
-        newTaskId = lastTask.id + 1;
-      }
-  
-      setTasks((tasks) => [
-        ...tasks,
+
+  // eslint-disable-next-line
+  function handleBtn() {
+    if (inputValue !== '') {
+      setItems([
+        ...items,
         {
-          id: newTaskId,
-          title: '',
-          description: '',
-          urgency: '',
-          status: status,
+          value: inputValue,
+          isCompleted: false,
         },
       ]);
+      setInputValue('');
     }
-  
-    function addTask(taskToAdd) {
-      let filteredTasks = tasks.filter((task) => {
-        return task.id !== taskToAdd.id;
-      });
-  
-      let newTaskList = [...filteredTasks, taskToAdd];
-  
-      setTasks(newTaskList);
-    }
-  
-    function deleteTask(taskId) {
-      let filteredTasks = tasks.filter((task) => {
-        return task.id !== taskId;
-      });
-  
-      setTasks(filteredTasks);
-    }
-  
-    function moveTask(id, newStatus) {
-      let task = tasks.filter((task) => {
-        return task.id === id;
-      })[0];
-  
-      let filteredTasks = tasks.filter((task) => {
-        return task.id !== id;
-      });
-  
-      task.status = newStatus;
-  
-      let newTaskList = [...filteredTasks, task];
-  
-      setTasks(newTaskList);
-    }
-  
-    return (
-      <div className="App">
-        <img className="getItDone-svg"  />
-        <main>
-          <section>
-            <Status
-              image="GetIt"
-              cssClass="GetIt"
-              tasks={tasks}
-              addEmptyTask={addEmptyTask}
-              addTask={addTask}
-              deleteTask={deleteTask}
-              moveTask={moveTask}
-              status="Backlog"
-            />
-  
-            <Status
-              image="InProgress"
-              cssClass="InProgress"
-              tasks={tasks}
-              addEmptyTask={addEmptyTask}
-              addTask={addTask}
-              deleteTask={deleteTask}
-              moveTask={moveTask}
-              status="In Progress"
-            />
-  
-            <Status
-              cssClass="GetIt"
-              image="GetIt"
-              tasks={tasks}
-              addEmptyTask={addEmptyTask}
-              deleteTask={deleteTask}
-              moveTask={moveTask}
-              status="Done"
-            />
-          </section>
-        </main>
-      </div>
-    );
   }
-  
 
- 
+  const ref = useRef();
 
- export default Task;
+  useEffect(() => {
+    ref.current.focus();
+
+    function handleKeydown(e) {
+      if (e.code === 'Enter') {
+        handleBtn();
+      }
+    }
+
+    window.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeydown);
+    };
+  }, [items, inputValue, handleBtn]);
+
+  function handleFinish(e) {
+    const id = e.target.id;
+
+    if (items[id].isCompleted) {
+      items[id] = {
+        ...items[id],
+        isCompleted: false,
+      };
+      setItems([...items]);
+    } else {
+      items[id] = {
+        ...items[id],
+        isCompleted: true,
+      };
+      setItems([...items]);
+    }
+  }
+
+  function handleDelete(e) {
+    const id = Number(e.target.id);
+
+    const filteredArray = items.filter((item, index) => {
+      return index !== id;
+    });
+    setItems(filteredArray);
+  }
+
+  return (
+    <div>
+    
+      <img src={GetItDone} className='header-image'/>
+      <div>
+          <label>to do</label>
+        <input
+          type="text"
+          name="name"
+          ref={ref}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button onClick={handleBtn}>Add</button>
+      </div>
+      <div>
+        {items.map((item, id) => {
+          return (
+            <div>
+              <li
+                id={id}
+                onClick={handleFinish}
+                style={
+                  item.isCompleted
+                    ? { textDecoration: 'line-through' }
+                    : { textDecoration: 'none' }
+                }
+              >
+                {item.value}
+              </li>
+              <button  onClick={handleDelete}> -</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
