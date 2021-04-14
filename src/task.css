@@ -1,9 +1,47 @@
+body {
+  color: black;
+}
+
+body::-webkit-scrollbar {
+  width: 1em;
+}
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
 .header-image {
-  width: 30%;
-  margin-top: -15em;
-  margin: 2em;
+  width: 25%;
+  top: 0;
+  left: 0;
+  margin: auto;
+  z-index: 99;
+}
+
+.task-main-margin {
+  overflow-y: scroll;
   position: absolute;
   top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: 5em;
+  margin-bottom: 5em;
+  width: 550px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 20px;
 }
 
 input {
@@ -13,7 +51,7 @@ input {
   outline: none;
   border-radius: none;
   padding: 10px 20px;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid black;
   box-shadow: none;
   color: black;
 }
@@ -23,4 +61,67 @@ input:invalid {
 input:focus,
 input:valid {
   border-color: black;
+}
+
+.list {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  color: transparent;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  list-style: none;
+  text-align: left;
+}
+
+.input-main {
+  display: flex;
+}
+
+.input-btn-main {
+  text-align: right;
+  justify-content: right;
+}
+
+.input-btn {
+  margin-left: 1em;
+  width: 5em;
+  height: 5em;
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.input-btn:hover {
+  background-color: transparent;
+}
+
+.list-items-main {
+  margin-top: 1.5em;
+}
+
+.list-items {
+  justify-content: space-between;
+  margin-bottom: 0.8em;
+  display: flex;
+}
+
+.task-delete {
+  width: 4em;
+  height: 4em;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: transparent;
+  justify-content: right;
+}
+
+.btn-delete-main {
+  text-align: right;
+  justify-content: right;
+}
+
+.task-delete:hover {
+  background-color: white;
 }

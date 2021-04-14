@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import GetItDone from './images/getitdone.svg'
+import GetItDone from './images/getitdon2.svg';
+import { Link } from 'react-router-dom';
 
 export default function Task() {
   const [inputValue, setInputValue] = useState('');
   const [items, setItems] = useState([]);
-  
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('items'));
@@ -16,8 +16,6 @@ export default function Task() {
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
   }, [items]);
- 
-  
 
   // eslint-disable-next-line
   function handleBtn() {
@@ -80,37 +78,57 @@ export default function Task() {
 
   return (
     <div>
-    
-      <img src={GetItDone} className='header-image'/>
-      <div>
-          <label>to do</label>
-        <input
-          type="text"
-          name="name"
-          ref={ref}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button onClick={handleBtn}>Add</button>
-      </div>
-      <div>
-        {items.map((item, id) => {
-          return (
-            <div>
-              <li
-                id={id}
-                onClick={handleFinish}
-                style={
-                  item.isCompleted
-                    ? { textDecoration: 'line-through' }
-                    : { textDecoration: 'none' }
-                }
-              >
-                {item.value}
-              </li>
-              <button  onClick={handleDelete}> -</button>
+      <Link className="link" to="/">
+        Clock
+      </Link>
+       <div className="task-main-margin">
+        <div className="task-main">
+          <label>
+            {' '}
+            <img src={GetItDone} className="header-image" />
+          </label>
+          <div className="input-main">
+            <input
+              maxlength="15"
+              max="5"
+              type="text"
+              name="name"
+              ref={ref}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <div className="input-btn-main">
+              <button className="input-btn" onClick={handleBtn}>
+                +
+              </button>
             </div>
-          );
-        })}
+          </div>
+          <div className="list-items-main">
+            {items.map((item, id) => {
+              return (
+                <div className="list-items">
+                  <li
+                    className="list"
+                    id={id}
+                    onClick={handleFinish}
+                    style={
+                      item.isCompleted
+                        ? { textDecoration: 'line-through', color: 'white' }
+                        : { textDecoration: 'none' }
+                    }
+                  >
+                    {item.value}
+                  </li>
+                  <div className="btn-delete-main">
+                    <button className="task-delete" onClick={handleDelete}>
+                      {' '}
+                      -
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

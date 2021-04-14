@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import TicTac from '../images/circle-text.svg';
-import getItDone from '../images/getitdone.svg';
 import Play from '../images/play.svg';
 import Pause from '../images/pause.svg';
 import Sidebar from './sidebar';
@@ -100,8 +99,6 @@ function Timer() {
     if (timerRunning) {
       console.log('men funka');
       return <Errorm />;
-
-      return <h1 className="error-message">Please sign up.</h1>;
     }
   };
 

@@ -3,7 +3,6 @@ import BreakInterval from './break';
 import WorkInterval from './work';
 import Close from '../images/close.svg';
 import Burger from '../images/burger.svg';
-import Play from '../images/play.svg';
 
 function Sidebar({
   breakLength,
