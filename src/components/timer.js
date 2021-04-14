@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import TicTac from '../images/circle-text.svg';
 import Play from '../images/play.svg';
 import Pause from '../images/pause.svg';
@@ -7,8 +7,10 @@ import Reset from '../images/reset.svg';
 import About from './about';
 import { Link } from 'react-router-dom';
 import Errorm from './error';
+import Task from '../task'
+import useSound from 'use-sound';
+import soundfile from '../asset/classical.mp3'
 
-import soundfile from '../src_ride.wav';
 
 function Timer() {
   const [workLength, setWorkLength] = useState(25);
@@ -16,24 +18,19 @@ function Timer() {
   const [timerLabel, setTimerLabel] = useState('Work');
   const [seconds, setSeconds] = useState(.1 * 60);
   const [timerRunning, setTimerRunning] = useState(false);
-  const myAudio = useRef();
 
   let min = Math.floor(seconds / 60);
   let sec = seconds % 60;
 
   useEffect(() => {
     const handleSwitch = () => {
+      
       if (timerLabel === 'Work') {
         setTimerLabel('Break');
-        var element = document.getElementById('timer-digits');
-        element.classList.add('anotherclass');
-
         // update the break
         setSeconds(breakLength * 60);
       } else if (timerLabel === 'Break') {
         setTimerLabel('Work');
-        const div = document.createElement('div');
-        div.classList.add('anotherclass');
         //update the session
         setSeconds(workLength * 60);
       }
@@ -53,7 +50,7 @@ function Timer() {
       clearInterval(countdown);
     }
     return () => clearInterval(countdown);
-  }, [timerRunning, seconds, timerLabel, breakLength, workLength, myAudio]);
+  }, [timerRunning, seconds, timerLabel, breakLength, workLength]);
 
   const handleStart = () => {
     setTimerRunning(true);
@@ -137,7 +134,6 @@ function Timer() {
           </div>
         </div>
       </div>
-      <audio id="beep" ref={myAudio} src={soundfile} type="audio"></audio>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import GetItDone from './images/getitdon2.svg';
 import { Link } from 'react-router-dom';
+import Timer from '../src/components/timer'
 
 export default function Task() {
   const [inputValue, setInputValue] = useState('');
@@ -67,17 +68,16 @@ export default function Task() {
     }
   }
 
-  function handleDelete(e) {
-    const id = Number(e.target.id);
+  function handleDelete(id) {
+    const newTodos = [...items];
+    newTodos.splice(id, 1);
+    setItems(newTodos);
 
-    const filteredArray = items.filter((item, index) => {
-      return index !== id;
-    });
-    setItems(filteredArray);
   }
 
   return (
     <div>
+       
       <Link className="link" to="/">
         Clock
       </Link>
@@ -89,7 +89,7 @@ export default function Task() {
           </label>
           <div className="input-main">
             <input
-              maxlength="15"
+              maxlength="80"
               max="5"
               type="text"
               name="name"
@@ -109,6 +109,7 @@ export default function Task() {
                   <li
                     className="list"
                     id={id}
+                    key={item.id}
                     onClick={handleFinish}
                     style={
                       item.isCompleted
@@ -119,7 +120,7 @@ export default function Task() {
                     {item.value}
                   </li>
                   <div className="btn-delete-main">
-                    <button className="task-delete" onClick={handleDelete}>
+                    <button className="task-delete" onClick={() =>handleDelete(id)}>
                       {' '}
                       -
                     </button>
