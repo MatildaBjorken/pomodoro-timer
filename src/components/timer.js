@@ -8,7 +8,6 @@ import About from './about';
 import { Link } from 'react-router-dom';
 import Errorm from './error';
 import Task from '../task'
-import useSound from 'use-sound';
 import start from '../asset/start.wav'
 import countDown from '../asset/countDown.wav'
 import stop from '../asset/stop.wav'
