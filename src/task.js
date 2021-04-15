@@ -85,11 +85,12 @@ export default function Task() {
         <div className="task-main">
           <label>
             {' '}
-            <img src={GetItDone} className="header-image" />
+            GET TO WORK
           </label>
           <div className="input-main">
             <input
               maxlength="80"
+              placeholder='I have to...'
               max="5"
               type="text"
               name="name"

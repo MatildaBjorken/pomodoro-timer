@@ -9,7 +9,10 @@ import { Link } from 'react-router-dom';
 import Errorm from './error';
 import Task from '../task'
 import useSound from 'use-sound';
-import soundfile from '../asset/classical.mp3'
+import start from '../asset/start.wav'
+import countDown from '../asset/countDown.wav'
+import stop from '../asset/stop.wav'
+import click from '../asset/click.wav'
 
 
 function Timer() {
@@ -27,10 +30,14 @@ function Timer() {
       
       if (timerLabel === 'Work') {
         setTimerLabel('Break');
+        const alarm = new Audio(countDown);
+        alarm.play();
         // update the break
         setSeconds(breakLength * 60);
       } else if (timerLabel === 'Break') {
         setTimerLabel('Work');
+        const alarm = new Audio(countDown);
+        alarm.play();
         //update the session
         setSeconds(workLength * 60);
       }
@@ -38,6 +45,7 @@ function Timer() {
 
     let countdown = null;
     if (timerRunning && seconds > 0) {
+
       countdown = setInterval(() => {
         setSeconds(seconds - 1);
       }, 1000);
@@ -53,10 +61,14 @@ function Timer() {
   }, [timerRunning, seconds, timerLabel, breakLength, workLength]);
 
   const handleStart = () => {
+    const alarm = new Audio(start);
+    alarm.play();
     setTimerRunning(true);
   };
 
   const handleStop = () => {
+    const alarm = new Audio(stop);
+    alarm.play();
     setTimerRunning(false);
   };
   const handleReset = () => {
@@ -71,6 +83,8 @@ function Timer() {
 
   const increaseWork = () => {
     if (!timerRunning && workLength < 60) {
+      const alarm = new Audio(click);
+      alarm.play();
       setWorkLength(workLength + 5);
       setSeconds((workLength + 5) * 60);
     }
@@ -78,6 +92,8 @@ function Timer() {
 
   const decreaseWork = () => {
     if (!timerRunning && workLength > 5) {
+      const alarm = new Audio(click);
+      alarm.play();
       setWorkLength(workLength - 5);
       setSeconds((workLength - 5) * 60);
     }
@@ -85,12 +101,16 @@ function Timer() {
 
   const decreaseBreak = () => {
     if (!timerRunning && breakLength > 1) {
+      const alarm = new Audio(click);
+      alarm.play();
       setBreakLength(breakLength - 1);
     }
   };
 
   const increaseBreak = () => {
     if (!timerRunning && breakLength < 60) {
+      const alarm = new Audio(click);
+      alarm.play();
       setBreakLength(breakLength + 1);
     }
     if (timerRunning) {
