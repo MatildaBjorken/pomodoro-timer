@@ -40,7 +40,7 @@ function Sidebar({
   useWindowSize();
 
   return (
-    <div>
+    <div >
       <div className="sidebar-main-btn">
         <div className="sidebar-menu-btn" onClick={handleToggle}>
           {navbarOpen ? <img src={Close} /> : <img src={Burger} />}
@@ -48,7 +48,7 @@ function Sidebar({
       </div>
       <nav className={`menuNav ${navbarOpen ? ' showMenu' : ''}`}>
         <div className="sidebar-content">
-          <WorkInterval
+          <WorkInterval 
             workLength={workLength}
             increaseWork={increaseWork}
             decreaseWork={decreaseWork}
