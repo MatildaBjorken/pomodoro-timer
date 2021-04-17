@@ -5,7 +5,7 @@ import Pause from '../images/pause.svg';
 import Sidebar from './sidebar';
 import Reset from '../images/reset.svg';
 import About from './about';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Errorm from './error';
 import Task from '../task'
 import start from '../asset/start.wav'
@@ -121,6 +121,7 @@ function Timer() {
   return (
     <div className="main">
       <About />
+      
       <Link className="link" to="task">
         task
       </Link>

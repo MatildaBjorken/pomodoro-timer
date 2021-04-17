@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
-import Timer from './components/timer'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Timer from './components/timer';
+import Task from './task'
 
 function App() {
-
   return (
-    <div>
-     <Timer/>
-    </div>
+    <BrowserRouter>
+      <div>
+      
+        <Switch>
+          <Route path="/" component={Timer} exact />
+          <Route path="/task" component={Task} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
