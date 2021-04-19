@@ -18,6 +18,10 @@ body::-webkit-scrollbar-thumb {
   width: 20px;
 }
 
+.task-main{
+  width: 100%;
+}
+
 .header-image {
   width: 25%;
   top: 0;
@@ -89,8 +93,8 @@ input:valid {
 
 .input-btn {
   margin-left: 1em;
-  width: 5em;
-  height: 5em;
+  width: 55px;
+  height: 55px;
   cursor: pointer;
   border: 1px solid black;
   background-color: white;
@@ -113,8 +117,8 @@ input:valid {
 }
 
 .task-delete {
-  width: 4em;
-  height: 4em;
+  width: 45px;
+  height: 45px;
   cursor: pointer;
   border-radius: 50%;
   border: 1px solid black;
