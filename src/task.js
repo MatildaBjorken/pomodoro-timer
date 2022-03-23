@@ -78,7 +78,7 @@ export default function Task() {
   return (
     <div>
        
-      <Link className="link" to="/">
+      <Link className="link" to="/" items={items}>
         Clock
       </Link>
        <div className="task-main-margin">

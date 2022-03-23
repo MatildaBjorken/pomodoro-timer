@@ -5,9 +5,11 @@ body {
 body::-webkit-scrollbar {
   width: 1em;
 }
+
 body::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
+
 body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
@@ -18,7 +20,7 @@ body::-webkit-scrollbar-thumb {
   width: 20px;
 }
 
-.task-main{
+.task-main {
   width: 100%;
 }
 
@@ -49,6 +51,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 input {
+  font-family: 'Prompt', sans-serif;
   background-color: transparent;
   width: 100%;
   border: none;
@@ -58,23 +61,25 @@ input {
   box-shadow: none;
   color: black;
 }
+
 input:invalid {
   outline: 0;
 }
+
 input:focus,
 input:valid {
   border-color: black;
 }
 
-::placeholder{
-    color: rgb(0, 0, 0);
+::placeholder {
+  color: rgb(0, 0, 0);
 }
 
 .list {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
   color: transparent;
-  font-size: 1.7rem;
+  font-size: 2rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   display: flex;
@@ -146,7 +151,7 @@ input:valid {
   }
 
   .list {
-    font-size: 1.2rem;
+    font-size: 2rem;
   }
 
   .input-btn {
@@ -157,6 +162,6 @@ input:valid {
     border: 1px solid black;
     background-color: white;
   }
-  
-  
+
+
 }

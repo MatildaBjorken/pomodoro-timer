@@ -13,8 +13,7 @@ import countDown from '../asset/countDown.wav'
 import stop from '../asset/stop.wav'
 import click from '../asset/click.wav'
 
-
-function Timer() {
+function Timer({items}) {
   const [workLength, setWorkLength] = useState(25);
   const [breakLength, setBreakLength] = useState(5);
   const [timerLabel, setTimerLabel] = useState('Work');
@@ -121,7 +120,6 @@ function Timer() {
   return (
     <div className="main">
       <About />
-      
       <Link className="link" to="task">
         task
       </Link>
